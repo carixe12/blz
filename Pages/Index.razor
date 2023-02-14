@@ -1,0 +1,46 @@
+﻿@page "/"
+
+@using Blaz.Models
+
+<div class='todo'>
+
+<h1>my first To do</h1>
+<div class='todo-input'>
+<input type='text' @bind ="todoInput" />
+<button @onclick='AddTodo'>Add</button>
+</div>
+
+@for (int i = 0; i < todos.Count; i++) 
+{
+
+    var index = i;
+    var todo = todos[i];
+
+   <div class='todo-item'>
+    <div>@todo.Title</div>
+    <button @onclick ="@(() => RemoveTodo(index))"> Remove</button>
+    </div>   
+}
+</div>
+
+
+@code {
+
+    public string todoInput { get; set; }
+    public List<Todo> todos = new List<Todo>();
+
+
+    public void AddTodo() 
+    {
+        var todo = new Todo();
+        todo.Title = todoInput;
+        todos.Add(todo);
+        todoInput="";
+    }
+     public void RemoveTodo (int index) 
+    {
+        todos.RemoveTodo(index);
+    }
+
+
+}
